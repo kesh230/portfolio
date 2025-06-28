@@ -1,13 +1,13 @@
 import { ArrowDown, Link, Mail, MapPin, Phone, Video } from 'lucide-react';
 import { useRef } from 'react';
-import React from "react";
+import React from 'react';
 
 const Portfolio = () => {
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
 
   const scrollToSection = (ref) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    return ref.current?.scrollIntoView({ behavior: 'smooth' })
   };
 
   const userInfo = {
@@ -68,6 +68,9 @@ const Portfolio = () => {
                   Contact
                 </button>
               </li>
+              <div className="bg-red-500 text-white p-4">
+  If this is red, Tailwind is working
+</div>
             </ul>
           </div>
         </div>
@@ -176,7 +179,7 @@ const Portfolio = () => {
                 <span>LinkedIn Profile</span>
               </a>
               <a href={userInfo.youtube} className="flex items-center gap-2 text-black hover:text-gray-600 transition-colors">
-                <Video className="w-5 h-5" />
+                <Video className="w-5 h-10" />
                 <span>YouTube Channel</span>
               </a>
             </div>
