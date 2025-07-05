@@ -68,16 +68,16 @@ const Portfolio = () => {
                   Contact
                 </button>
               </li>
-              <div className="bg-red-500 text-white p-4">
-  If this is red, Tailwind is working
-</div>
-            </ul>
+          </ul>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
       <header className="min-h-screen relative flex items-center">
+                <div className="bg-red-500 text-white p-4">
+                   If this is red, Tailwind is working
+                </div>
         <div className="relative z-10 w-full pt-16 px-4">
           <div className="max-w-4xl mx-auto bg-white rounded-lg p-8 shadow-lg">
             <h1 className="text-5xl font-bold mb-4 text-black">
