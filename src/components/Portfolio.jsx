@@ -6,12 +6,13 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const Portfolio = () => {
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
   const certRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const scrollToSection = (ref) => {
     return ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -67,8 +68,8 @@ const Portfolio = () => {
               {userInfo.siteName}
             </div>
 
-            {/* Navigation Links */}
-            <ul className="flex gap-8 text-black">
+            {/* Desktop Navigation */}
+            <ul className="hidden md:flex gap-4 text-sm md:gap-8 text-black flex-wrap">
               <li>
                 <button
                   onClick={() =>
@@ -104,29 +105,97 @@ const Portfolio = () => {
                 </button>
               </li>
             </ul>
+
+            {/* Hamburger Icon */}
+            <div
+              className="md:hidden flex flex-col gap-1 cursor-pointer"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <span className="w-6 h-0.5 bg-black"></span>
+              <span className="w-6 h-0.5 bg-black"></span>
+              <span className="w-6 h-0.5 bg-black"></span>
+            </div>
           </div>
         </div>
+
+        {/* Mobile Sidebar */}
+        {menuOpen && (
+          <div className="md:hidden bg-white shadow-md border-t border-gray-200 px-4 py-4">
+            <ul className="flex flex-col gap-4 text-black">
+              <li>
+                <button
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    setMenuOpen(false);
+                  }}
+                  className="hover:text-gray-600 transition-colors font-medium"
+                >
+                  Home
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    scrollToSection(aboutRef);
+                    setMenuOpen(false);
+                  }}
+                  className="hover:text-gray-600 transition-colors font-medium"
+                >
+                  Projects
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    scrollToSection(certRef);
+                    setMenuOpen(false);
+                  }}
+                  className="hover:text-gray-600 transition-colors font-medium"
+                >
+                  Certificates
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    scrollToSection(contactRef);
+                    setMenuOpen(false);
+                  }}
+                  className="hover:text-gray-600 transition-colors font-medium"
+                >
+                  Contact
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
 
       {/* Header Section */}
-      <header className="min-h-screen relative flex items-center">
+      <header className="py-8 relative flex items-center">
         {/* <div className="bg-red-500 text-white p-4">
                    If this is red, Tailwind is working
                 </div> */}
-        <div className="relative z-10 w-full pt-16 px-4">
-          <div className="max-w-4xl mx-auto bg-white rounded-lg p-8 shadow-lg">
-            <h1 className="text-5xl font-bold mb-4 text-black">
+        <div className="relative z-10 w-full pt-24 px-4">
+          <div className="max-w-4xl mx-auto bg-white rounded-lg p-6 md:p-8 shadow-lg">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-black">
               {userInfo.name}
             </h1>
-            <h2 className="text-2xl mb-6 text-black">{userInfo.title}</h2>
-            <p className="text-lg mb-8 text-black">{userInfo.bio1}</p>
-            <p className="text-lg mb-8 text-black">{userInfo.bio2}</p>
+            <h2 className="text-xl md:text-2xl mb-6 text-black">
+              {userInfo.title}
+            </h2>
+            <p className="text-base md:text-lg mb-6 md:mb-8 text-black">
+              {userInfo.bio1}
+            </p>
+            <p className="text-base md:text-lg mb-8 text-black">
+              {userInfo.bio2}
+            </p>
 
             <div className="mb-8">
-              <h3 className="text-xl font-semibold mb-4 text-black">
+              <h3 className="text-lg md:text-xl font-semibold mb-4 text-black">
                 Areas of Expertise
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {userInfo.expertise.map((skill, index) => (
                   <div
                     key={index}
@@ -138,13 +207,13 @@ const Portfolio = () => {
               </div>
             </div>
 
-            <ArrowDown className="w-8 h-8 mx-auto animate-bounce text-black" />
+            <ArrowDown className="w-6 md:w-8 h-6 md:h-8 mx-auto animate-bounce text-black" />
           </div>
         </div>
       </header>
 
       {/* About Section */}
-      <section ref={aboutRef} className="min-h-screen py-16 px-4 bg-[#F0F5FF]">
+      <section ref={aboutRef} className="py-8 px-4 bg-[#F0F5FF]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-black mb-8">Projects</h2>
 
@@ -219,9 +288,9 @@ const Portfolio = () => {
       </section>
 
       {/* Certificate Section  */}
-      <section ref={certRef} className="py-16 px-4 bg-[#F0F5FF]">
+      <section ref={certRef} className="py-8 px-4 bg-[#F0F5FF]">
         <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mb-8">
             <h2 className="text-3xl font-bold text-black">Certificates</h2>
             <span className="text-sm text-gray-600 italic">
               Click on the title of certificate to view exact certificate
@@ -293,7 +362,7 @@ const Portfolio = () => {
       </section>
 
       {/* Footer Section */}
-      <footer ref={contactRef} className="py-16 px-4 bg-[#F0F5FF]">
+      <footer ref={contactRef} className="py-5 px-4 bg-[#F0F5FF]">
         <div className="max-w-4xl w-full mx-auto bg-white rounded-lg p-8 shadow-xl">
           <h2 className="text-3xl font-bold mb-8 text-black">
             Contact Information
